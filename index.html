@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <meta name="description" content="Smart Invoice เว็บทำใบแจ้งหนี้ ใบวางบิล ใบเสร็จ และเอกสารการขายออนไลน์ สร้างเอกสารได้ทันที ใส่โลโก้/QR PromptPay ปรับแต่งรายการสินค้า คำนวณ VAT และพิมพ์เป็น PDF ได้ง่าย">
+    <title>Smart Invoice</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
@@ -116,57 +117,13 @@
             padding: 2px 0 4px 0;
         }
 
-        /* --- Google Ads placeholders --- */
-        .ad-slot {
-            width: 100%;
-            border: 1px dashed #cbd5e1;
-            border-radius: 8px;
-            background: #f8fafc;
-            color: #64748b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-size: 12px;
-            min-height: 90px;
-        }
-        .ad-slot.small { min-height: 60px; }
-        .ad-slot.large { min-height: 120px; }
-        @media print {
-            .ad-slot { display: none !important; }
-        }
-
-    
-
-        /* --- Custom print header (use together with browser 'Headers and footers' = OFF) --- */
-        .print-meta { display: none; }
-        @media print {
-            @page { margin: 14mm; }
-            .print-meta{
-                display: block !important;
-                position: fixed;
-                top: 6mm;
-                left: 6mm;
-                font-size: 10px;
-                color: #64748b;
-                z-index: 9999;
-            }
-            .print-meta .page-number::after{ content: counter(page); }
-        }
-</style>
+    </style>
 </head>
 <body class="p-4">
-    <div class="print-meta"><span id="print-date"></span> | หน้า <span class="page-number"></span></div>
-
 
     <div class="no-print max-w-[1000px] mx-auto mb-4 flex justify-between items-center bg-slate-800 text-white p-3 rounded shadow-md">
         <span class="text-sm">⭐ <b>สถานะ:</b> ส่วนหัวและรายการสินค้าจาก index + ส่วนชำระเงินแยกซ้ายขวาจาก index2 เรียบร้อยแล้วครับ</span>
         <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-1.5 rounded font-bold shadow-lg transition-all">พิมพ์ใบแจ้งหนี้ (PDF)</button>
-    </div>
-
-    <!-- Google Ads: Top slot (place AdSense code inside this container) -->
-    <div id="ad-top" class="max-w-[1000px] mx-auto mb-4">
-        <div class="ad-slot">พื้นที่โฆษณา Google Ads (ด้านบน)\</div>
     </div>
 
     <div class="invoice-box">
@@ -345,11 +302,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Google Ads: Bottom slot (place AdSense code inside this container) -->
-    <div id="ad-bottom" class="max-w-[1000px] mx-auto mt-4">
-        <div class="ad-slot">พื้นที่โฆษณา Google Ads (ด้านล่าง)\</div>
     </div>
 
     <script>
@@ -601,19 +553,6 @@
         addBankRow();
         window.addEventListener('resize', syncAllQrSizes);
         requestAnimationFrame(syncAllQrSizes);
-    
-
-        function setPrintMetaDate(){
-            const el = document.getElementById('print-date');
-            if(!el) return;
-            const d = new Date();
-            const pad = (n)=> String(n).padStart(2,'0');
-            // รูปแบบ: YYYY-MM-DD HH:MM
-            el.textContent = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-        }
-        window.addEventListener('beforeprint', setPrintMetaDate);
-        // ให้เห็นบนหน้าจอด้วยถ้าต้องการ (แต่ CSS ซ่อนไว้บนจอ)
-        setPrintMetaDate();
-</script>
+    </script>
 </body>
 </html>
